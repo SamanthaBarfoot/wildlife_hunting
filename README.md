@@ -5,7 +5,7 @@
 This folder contains the code and data supporting an analysis of Ontario wildlfie populations and the impact of hunting
 
 ## Obtaining Data
-The data need to be downloaded from the Ontario Data Catalogue. This is done manually and then moved to data/raw_data/.
+The data need to be downloaded from the Ontario Data Catalogue (https://data.ontario.ca/dataset/white-tailed-deer-hunting-activity-and-harvest). This is done manually and then moved to data/raw_data/.
 
 ## File Structure
 
