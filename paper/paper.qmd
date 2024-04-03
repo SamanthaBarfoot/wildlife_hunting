@@ -1,5 +1,6 @@
 ---
-title: "Wildlife Hunting..."
+title: "Analysis of Ontario Wildlife Hunting Data"
+subtitle: "2009-2023"
 author: Samantha Barfoot
 thanks: "Code and data are available at: LINK."
 date: today
@@ -11,15 +12,25 @@ bibliography: references.bib
 ---
 # Introduction
 
+The analysis, graphs, and tables were made with [@citeR].
+
 # Data
 
 # Model
 
 # Results
- - Averages, means, etc (summary statistics)
- - Differences over time
 
 # Discussion
+
+## What was done
+
+## Something we learned about the world
+
+## Another thing we learned about the world
+
+## Weaknesses
+
+## Looking forward
 
 # References
 
