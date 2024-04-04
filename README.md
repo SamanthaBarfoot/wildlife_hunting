@@ -1,4 +1,4 @@
-# Analyzing Ontario Wildlife Populations and Hunting Permits
+# Analysis of Ontario Wildlife Harvests and Active Hunters
 
 ## Overview
 
