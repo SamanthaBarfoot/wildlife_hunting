@@ -1,6 +1,6 @@
 ---
-title: "Analysis of Ontario Wildlife Harvests and Active Hunters"
-subtitle: "2009-2023"
+title: "Is it Better to be a Moose or a Black Bear?"
+subtitle: "An Analysis of Ontario Wildlife Harvest and Active Hunter Rates From 2012-2023"
 author: Samantha Barfoot
 thanks: "Code and data are available at: https://github.com/SamanthaBarfoot/wildlife_hunting.git"
 date: today
