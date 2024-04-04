@@ -1,5 +1,5 @@
 ---
-title: "Analysis of Ontario Wildlife Hunting Data"
+title: "Analysis of Ontario Wildlife Harvests and Active Hunters"
 subtitle: "2009-2023"
 author: Samantha Barfoot
 thanks: "Code and data are available at: LINK."

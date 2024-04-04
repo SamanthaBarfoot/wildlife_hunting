@@ -9,36 +9,40 @@
 
 #### Workspace setup ####
 library(tidyverse)
+library(MASS)
+library(stringr)
 
-#### Clean data ####
-raw_data <- read_csv("inputs/data/plane_data.csv")
+#### Read in data ####
+raw_data_moose <- read_csv("data/raw_data/moose_2023.csv",
+                          show_col_types = FALSE,
+                          skip = 1)
 
-cleaned_data <-
-  raw_data |>
-  janitor::clean_names() |>
-  select(wing_width_mm, wing_length_mm, flying_time_sec_first_timer) |>
-  filter(wing_width_mm != "caw") |>
-  mutate(
-    flying_time_sec_first_timer = if_else(flying_time_sec_first_timer == "1,35",
-                                   "1.35",
-                                   flying_time_sec_first_timer)
-  ) |>
-  mutate(wing_width_mm = if_else(wing_width_mm == "490",
-                                 "49",
-                                 wing_width_mm)) |>
-  mutate(wing_width_mm = if_else(wing_width_mm == "6",
-                                 "60",
-                                 wing_width_mm)) |>
-  mutate(
-    wing_width_mm = as.numeric(wing_width_mm),
-    wing_length_mm = as.numeric(wing_length_mm),
-    flying_time_sec_first_timer = as.numeric(flying_time_sec_first_timer)
-  ) |>
-  rename(flying_time = flying_time_sec_first_timer,
-         width = wing_width_mm,
-         length = wing_length_mm
-         ) |> 
-  tidyr::drop_na()
+#raw_data_bear <- read_csv("data/raw_data/black_bear_2023.csv",
+#                          show_col_types = FALSE,
+#                          skip = 1)
+
+#### Clean in data ####
+num_records_moose <- dim(raw_data_moose)[1]
+
+#creates matrix full of zeros to store clean data
+moose_data <- matrix(rep(0, 7*36), ncol = 7, nrow = 36)
+
+#fills clean data matrix with the cleaned data
+#columns are as follows: wildlife management region, year, active hunters, bull harvest,
+# cow harvest, calf harvest, and total harvest
+for(i in 1:num_records_moose){
+  #unit <- raw_data_moose[[i,1]]
+  unit <- "075"
+  if(str_starts(unit,"0")){
+    str_remove(unit,"0")
+  }
+  if(str_ends(unit,"[A-Za-z]")){
+    str_remove(unit,"[A-Za-z]")
+  }
+  unit <- strtoi(unit)
+  print(unit)
+}
+
 
 #### Save data ####
-write_csv(cleaned_data, "outputs/data/analysis_data.csv")
+#write_csv(cleaned_data, "/data/analysis_data/")
