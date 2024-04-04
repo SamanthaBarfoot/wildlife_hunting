@@ -2,10 +2,10 @@
 title: "Analysis of Ontario Wildlife Harvests and Active Hunters"
 subtitle: "2009-2023"
 author: Samantha Barfoot
-thanks: "Code and data are available at: LINK."
+thanks: "Code and data are available at: https://github.com/SamanthaBarfoot/wildlife_hunting.git"
 date: today
 date-format: long
-abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+abstract: "This paper analyzes Ontario wildlife harvest counts, specifically moose and black bears, and the number fo active hunters based on region. The analysis examines harvest counts from 2012 - 2023 across northern, southeastern, and southwestern Ontario. It was found that..."
 format: pdf
 number-sections: true
 bibliography: references.bib
