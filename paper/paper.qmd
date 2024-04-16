@@ -11,11 +11,248 @@ number-sections: true
 table-of-contents: true
 bibliography: references.bib
 ---
+
+```{r}
+#| echo: false
+#| include: false
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(ggplot2)
+```
+
 # Introduction
 
 The analysis, graphs, and tables were made with [@citeR].
 
 # Data
+```{r}
+#| echo: false
+#| include: false
+#| warning: false
+#| message: false
+#### Read in data ####
+north_bear <-
+  read_csv(
+    file = "../data/analysis_data/north_data_bear.csv",
+    show_col_types = FALSE
+  )
+se_bear <-
+  read_csv(
+    file = "../data/analysis_data/southeast_data_bear.csv",
+    show_col_types = FALSE
+  )
+
+sw_bear <-
+  read_csv(
+    file = "../data/analysis_data/southwest_data_bear.csv",
+    show_col_types = FALSE
+  )
+
+north_moose <-
+  read_csv(
+    file = "../data/analysis_data/north_data_moose.csv",
+    show_col_types = FALSE
+  )
+
+se_moose <-
+  read_csv(
+    file = "../data/analysis_data/southeast_data_moose.csv",
+    show_col_types = FALSE
+  )
+
+sw_moose <-
+  read_csv(
+    file = "../data/analysis_data/southwest_data_moose.csv",
+    show_col_types = FALSE
+  )
+```
+
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: fig-north
+#| fig-cap: "Northern harvest numbers for moose and bears between 2009 and 2023"
+
+#create line graph 
+ggplot()+
+  geom_line(data = north_bear, aes(x = Year, y = Harvest), color = "blue") + 
+  geom_line(data = north_moose, aes(x = Year, y = `Total Harvest`), color = "red")+
+  theme_minimal()
+
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: fig-southeast
+#| fig-cap: "Southeastern harvest numbers for moose and bears between 2009 and 2023"
+
+#create line graph 
+ggplot()+
+  geom_line(data = se_bear, aes(x = Year, y = Harvest), color = "blue") + 
+  geom_line(data = se_moose, aes(x = Year, y = `Total Harvest`), color = "red")+
+  theme_minimal() 
+
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: fig-southwest
+#| fig-cap: "Southwestern harvest numbers for moose and bears between 2009 and 2023"
+
+#create line graph 
+ggplot()+
+  geom_line(data = sw_bear, aes(x = Year, y = Harvest), color = "blue") + 
+  geom_line(data = sw_moose, aes(x = Year, y = `Total Harvest`), color = "red")+
+  theme_minimal()
+
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: fig-bearharvest
+#| fig-cap: "Bear harvest numbers for the northern, southeastern and southwestern regions from 2012-2023"
+
+#create line graph 
+ggplot()+
+  geom_line(data = sw_bear, aes(x = Year, y = Harvest), color = "blue") + 
+  geom_line(data = se_bear, aes(x = Year, y = Harvest), color = "red")+
+  geom_line(data = north_bear, aes(x = Year, y = Harvest), color = "green")+
+  theme_minimal()
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: fig-mooseharvest
+#| fig-cap: "Moose harvest numbers for the northern, southeastern and southwestern regions from 2012-2023"
+
+#create line graph 
+ggplot()+
+  geom_line(data = sw_moose, aes(x = Year, y = `Total Harvest`), color = "blue") + 
+  geom_line(data = se_moose, aes(x = Year, y = `Total Harvest`), color = "red")+
+  geom_line(data = north_moose, aes(x = Year, y = `Total Harvest`), color = "green")+
+  theme_minimal()
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: fig-swhunters
+#| fig-cap: "Number of active bear and moose hunters in the southwest region from 2009-2023"
+
+#create line graph 
+ggplot()+
+  geom_line(data = sw_bear, aes(x = Year, y = `Active Hunters`), color = "blue") +
+  geom_line(data = sw_moose, aes(x = Year, y = `Active Hunters`), color = "red")+
+  theme_minimal()
+
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: fig-sehunters
+#| fig-cap: "Number of active bear and moose hunters in the southeast region from 2009-2012"
+
+#create line graph 
+ggplot()+
+  geom_line(data = se_bear, aes(x = Year, y = `Active Hunters`), color = "blue") +
+  geom_line(data = se_moose, aes(x = Year, y = `Active Hunters`), color = "red")+
+  theme_minimal()
+
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: fig-northhunters
+#| fig-cap: "Number of active bear and moose hunters in the northern region from 2009-2023"
+
+#create line graph 
+ggplot()+
+  geom_line(data = north_bear, aes(x = Year, y = `Active Hunters`), color = "blue") +
+  geom_line(data = north_moose, aes(x = Year, y = `Active Hunters`), color = "red")+
+  theme_minimal()
+
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: fig-swharvesthunters
+#| fig-cap: "Number of active bear hunters plotted against total bear harvests from 2012-2023 in the southwest region"
+
+#create line graph 
+ggplot()+
+  geom_line(data = sw_bear, aes(x = `Active Hunters`, y = Harvest), color = "blue") +
+  theme_minimal()
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: fig-seharvesthuntersbear
+#| fig-cap: "Number of active bear hunters plotted against total bear harvests from 2012-2023 in the southeast region"
+
+#create line graph 
+ggplot()+
+  geom_line(data = se_bear, aes(x = `Active Hunters`, y = Harvest), color = "blue") +
+  theme_minimal()
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: fig-northharvesthuntersbear
+#| fig-cap: "Number of active bear hunters plotted against total bear harvests from 2012-2023 in the northern region"
+
+#create line graph 
+ggplot()+
+  geom_line(data = north_bear, aes(x = `Active Hunters`, y = Harvest), color = "blue") +
+  theme_minimal()
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: fig-swharvesthuntersmoose
+#| fig-cap: "Number of active moose hunters plotted against total moose harvests from 2009-2023 in the southwest region"
+
+#create line graph 
+ggplot()+
+  geom_line(data = sw_moose, aes(x = `Active Hunters`, y = `Total Harvest`), color = "red") +
+  theme_minimal()
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: fig-seharvesthuntersmoose
+#| fig-cap: "Number of active moose hunters plotted against total moose harvests from 2009-2023 in the southeast region"
+
+#create line graph 
+ggplot()+
+  geom_line(data = se_moose, aes(x = `Active Hunters`, y = `Total Harvest`), color = "red") +
+  theme_minimal()
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: fig-northharvesthuntersmoose
+#| fig-cap: "Number of active moose hunters plotted against total moose harvests from 2009-2023 in the northern region"
+
+#create line graph 
+ggplot()+
+  geom_line(data = north_moose, aes(x = `Active Hunters`, y = `Total Harvest`), color = "red") +
+  theme_minimal()
+```
 
 # Model
 
