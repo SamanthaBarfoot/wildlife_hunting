@@ -85,6 +85,19 @@ southwest_data_moose <-
             `Calf Harvest`= sum(`Calf Harvest`), 
             `Total Harvest`= sum(`Total Harvest`))
 
+#Creates a tibble of all the bull, calf, and cow harvests over the years from all regions
+types_data_moose <- 
+  raw_data_moose |>
+  group_by(Year)|>
+  summarise(`Bull Harvest`= sum(`Bull Harvest`), 
+            `Cow Harvest`= sum(`Cow Harvest`), 
+            `Calf Harvest`= sum(`Calf Harvest`))
+
+#creates a tibble of all moose WMU data, not grouped by year
+all_data_moose <- 
+  raw_data_moose |>
+  filter(WMU >= 1 & WMU <= 95)
+
 ## Bear tibbles ##
 #creates a tibble of the north region bear data by year
 north_data_bear <- 
@@ -110,6 +123,11 @@ southwest_data_bear <-
   summarise(`Active Hunters`= sum(`Active Hunters`), 
             Harvest= sum(Harvest))
 
+#creates a tibble of all bear WMU data, not grouped by year
+all_data_bear <- 
+  raw_data_bear |>
+  filter(WMU >= 1 & WMU <= 95)
+
 #### SAVE DATA ####
 write_csv(
   x = north_data_moose,
@@ -127,6 +145,16 @@ write_csv(
 )
 
 write_csv(
+  x = all_data_moose,
+  file = "data/analysis_data/all_data_moose.csv"
+)
+
+write_csv(
+  x = types_data_moose,
+  file = "data/analysis_data/types_data_moose.csv"
+)
+
+write_csv(
   x = north_data_bear,
   file = "data/analysis_data/north_data_bear.csv"
 )
@@ -141,3 +169,7 @@ write_csv(
   file = "data/analysis_data/southwest_data_bear.csv"
 )
 
+write_csv(
+  x = all_data_bear,
+  file = "data/analysis_data/all_data_bear.csv"
+)

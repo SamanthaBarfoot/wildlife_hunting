@@ -1,11 +1,11 @@
 ---
 title: "Is it Better to be a Moose or a Black Bear?"
-subtitle: "An Analysis of Ontario Wildlife Harvest and Active Hunter Rates From 2012 to 2023"
+subtitle: "An Analysis of Ontario Wildlife Harvest and Active Hunter Data From 2006 to 2023"
 author: Samantha Barfoot
 thanks: "Code and data are available at: https://github.com/SamanthaBarfoot/wildlife_hunting.git"
 date: today
 date-format: long
-abstract: "This paper analyzes Ontario wildlife harvest counts, specifically moose and black bears, and the number fo active hunters based on region. The analysis examines harvest counts from 2012 to 2023 across northern, southeastern, and southwestern Ontario. It was found that..."
+abstract: "This paper analyzes Ontario wildlife harvest counts, specifically moose and black bears, and the number of active hunters based on region. The analysis examines harvest counts from 2012 to 2023 across northern, southeastern, and southwestern Ontario. It was found that..."
 format: pdf
 number-sections: true
 table-of-contents: true
@@ -20,24 +20,39 @@ bibliography: references.bib
 
 library(tidyverse)
 library(ggplot2)
+library(gridExtra)
 ```
 
 # Introduction
 
-The analysis, graphs, and tables were made with [@citeR].
+Every year the Ontario Ministry of Natural Resources and Forestry records data on the number of black bears and moose hunted per year and the number of active hunters per year. Ontario moose hunting season typically runs from early September to late October [@moose] and black bear season runs from early May to mid June or mid August to late November depending on the region [@bear]. To hunt either of these animals, hunters must have the proper licence and are responsible for identifying their target and obtaining tags. Moose tags indicate what type of moose a hunter is allowed to harvest whether it be a cow, calf, or bull [@moose]. Hunting in Ontario is a significant contributor to the Ontario economy and tourism industry. It supports the employment of thousands of people and some years generates more money than the film and television industry in Ontario [@huntAs]. One year Canadian hunters spent around \$1.2 billion on hunting trips with \$70 on the hunting licences alone [@huntAs]. In 2000, the hunting industry represented \$1.5 billion of the economy [@huntAs]. Despite being such a large industry there is still a significant amount of poaching and other illegal hunting practices performed in Ontario [@poachNum]. In 2016 there were 384 major offences related to these practices [@poachNum].
 
-# Data
+Therefore, it is important to properly regulate and monitor the wildlife populations as well as the hunting and harvest numbers so that species are not put at risk by over hunting. Additionally, it is important to analyze how these levels change over the years and what might cause these changes. Alongside over hunting, having too large a population of a certain species can also put a strain on the ecosystem in which case hunting is an important method of regulating population. This paper explores the trends of active hunter and harvest numbers from 2006-2023 for moose and 2021-2023 for black bears.
+
+WHAT WAS FOUND
+
+The estimand of this paper is the correlation between the number of active hunters in Ontario and the number of annual moose and black bear harvests. Specifically, we examine how these numbers vary with regard to region and time 
+
+@sec-data of this paper covers the broader context of the Ontario moose and black bear hunting activty and harvest data sets from the Ontario Data Catalogue. It examines the variables used in the data set using graphs to help explain them as well as discussing high-level aspects of the data cleaning process. @sec-results further examines the relationship between the variables and the finding from the analysis of the two data sets. The @sec-discussion section of this paper explores what was learned from this analysis and the implications it has on Ontario's hunting industry and environment. Additionally, it identifies possible biases and factors that may have effected the analysis. 
+
+MORE ABOUT THE SECTIONS
+
+The graphs and tables in this paper were made with [@citeR] using R studio. The creation of these graphs and tables were made with `ggplot` [@ggplotRef], `tiddyverse` [@tidyverseRef], `gridExtra` [@gridRef] packages. The analysis and cleaning of the data was conducted with and `dyplr` [@dplRef ], `MASS` [@massRef], `janitor` [@janitorRef] and `stringr` [@stringRef] packages.
+
+# Data {#sec-data}
 ```{r}
 #| echo: false
 #| include: false
 #| warning: false
 #| message: false
+
 #### Read in data ####
 north_bear <-
   read_csv(
     file = "../data/analysis_data/north_data_bear.csv",
     show_col_types = FALSE
   )
+
 se_bear <-
   read_csv(
     file = "../data/analysis_data/southeast_data_bear.csv",
@@ -67,14 +82,185 @@ sw_moose <-
     file = "../data/analysis_data/southwest_data_moose.csv",
     show_col_types = FALSE
   )
+
+all_moose <-
+  read_csv(
+    file = "../data/analysis_data/all_data_moose.csv",
+    show_col_types = FALSE
+  )
+
+types_moose <-
+  read_csv(
+    file = "../data/analysis_data/types_data_moose.csv",
+    show_col_types = FALSE
+  )
+
+all_bear <-
+  read_csv(
+    file = "../data/analysis_data/all_data_bear.csv",
+    show_col_types = FALSE
+  )
 ```
 
+## Data Source
+
+The data sets used in this report, *Moose hunting activity and harvests* and *Black bear hunting activity and harvests*, were obtained from the Ontario Data Catalogue. Specifically, the data is provided by the ministry of Natural Resources and Forestry and were last updated on February 16, 2024. They data sets provide the estimated hunter and harvest numbers by region across Ontario from 2006 for the moose data set and 2012 for the black bear data set. The numbers in these data sets are based on replies that the Ontario government received from a sample of hunters across Ontario. It is not specified exactly how these measurements were performed only that they received replies from these various hunters. The number of active hunters and harvests could have been measured by surveys or the government asking all hunters registered for moose and black bear hunting how many harvests they collected. To legally hunt moose and black bears, hunters must register and obtain licences. Therefore, to measure how many active hunters are in Ontario the Ministry of Resources and Forestry might have counted how many registered hunters they have for each species. However, they can only estimate how many harvests were collected each year as it depends on hunters being honest about how many harvests they made and that all hunters posses the proper permits.  
+
+
+## Variables of Interest
+
+The original data set for moose hunting and harvests obtained from the Ontario Data Catalogue contained seven variables. The first variable,*WMU*, is the Wildlife Management Unit which indicates the specific region in Ontario. There are a total of 95 different WMUs which are grouped into three larger regions, northern, southeastern, and southwestern Ontario. The second variable, *Year*, indicates the harvest year. *Active Hunter* (see @fig-huntersmoose) indicates how many hunters were active in that specific WMU and year. *Bull Harvest*, *Cow Harvest*, and *Calf Harvest* (see @fig-harvestmoosetypes) indicate the respective number of harvests for each type of moose for that specific WMU and year. *Total Harvest* (see @fig-harvestmoose) is the sum of all bull, cow, and calf harvests for that specific WMU and year. The original data set for black bear hunting and harvests contains the same variables of WMU, year, and active hunters (see @fig-huntersbear). However, instead of bull, cow, calf, and total harvest there is only one harvest variable called *Harvest* (see @fig-harvestbear) as all black bears are grouped as one. 
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: fig-huntersmoose
+#| fig-cap: "Number of active moose hunters between 2012 and 2023 in the northern (A), southeastern (B), and southwestern (C) region"
+
+plot1 <- 
+  ggplot()+
+  geom_line(data = north_moose, aes(x = Year, y = `Active Hunters`), color = "black") +
+  theme_minimal()+
+  labs(tag = "A")
+
+plot2 <-
+  ggplot()+
+  geom_line(data = se_moose, aes(x = Year, y = `Active Hunters`), color = "black") +
+  theme_minimal() +
+  labs(tag = "B")
+
+plot3 <-
+  ggplot()+
+  geom_line(data = sw_moose, aes(x = Year, y = `Active Hunters`), color = "black") +
+  theme_minimal() +
+  labs(tag = "C")
+
+grid.arrange(plot1, plot2, plot3, ncol = 2, nrow = 2)
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: fig-harvestmoosetypes
+#| fig-cap: "Number of cow, bull, and calf moose types harvested between 2012 and 2023 in the northern (A), southeastern (B), and southwestern (C) region"
+
+plot1 <- 
+  ggplot()+
+  geom_line(data = types_moose, aes(x = Year, y = `Cow Harvest`), color = "black") +
+  theme_minimal()+
+  labs(tag = "A")
+
+plot2 <-
+  ggplot()+
+  geom_line(data = types_moose, aes(x = Year, y = `Calf Harvest`), color = "black") +
+  theme_minimal() +
+  labs(tag = "B")
+
+plot3 <-
+  ggplot()+
+  geom_line(data = types_moose, aes(x = Year, y = `Bull Harvest`), color = "black") +
+  theme_minimal() +
+  labs(tag = "C")
+
+grid.arrange(plot1, plot2, plot3, ncol = 2, nrow = 2)
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: fig-harvestmoose
+#| fig-cap: "Number of moose harvested between 2012 and 2023 in the northern (A), southeastern (B), and southwestern (C) region"
+
+plot1 <- 
+  ggplot()+
+  geom_line(data = north_moose, aes(x = Year, y = `Total Harvest`), color = "black") +
+  theme_minimal()+
+  labs(tag = "A")
+
+plot2 <-
+  ggplot()+
+  geom_line(data = se_moose, aes(x = Year, y = `Total Harvest`), color = "black") +
+  theme_minimal() +
+  labs(tag = "B")
+
+plot3 <-
+  ggplot()+
+  geom_line(data = sw_moose, aes(x = Year, y = `Total Harvest`), color = "black") +
+  theme_minimal() +
+  labs(tag = "C")
+
+grid.arrange(plot1, plot2, plot3, ncol = 2, nrow = 2)
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: fig-huntersbear
+#| fig-cap: "Number of active black bear hunters between 2012 and 2023 in the northern (A), southeastern (B), and southwestern (C) region"
+
+plot1 <- 
+  ggplot()+
+  geom_line(data = north_bear, aes(x = Year, y = `Active Hunters`), color = "black") +
+  theme_minimal()+
+  labs(tag = "A")
+
+plot2 <-
+  ggplot()+
+  geom_line(data = se_bear, aes(x = Year, y = `Active Hunters`), color = "black") +
+  theme_minimal() +
+  labs(tag = "B")
+
+plot3 <-
+  ggplot()+
+  geom_line(data = sw_bear, aes(x = Year, y = `Active Hunters`), color = "black") +
+  theme_minimal() +
+  labs(tag = "C")
+
+grid.arrange(plot1, plot2, plot3, ncol = 2, nrow = 2)
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: fig-harvestbear
+#| fig-cap: "Number of bears harvested between 2012 and 2023 in the northern (A), southeastern (B), and southwestern (C) region"
+
+plot1 <- 
+  ggplot()+
+  geom_line(data = north_bear, aes(x = Year, y = Harvest), color = "black") +
+  theme_minimal()+
+  labs(tag = "A")
+
+plot2 <-
+  ggplot()+
+  geom_line(data = se_bear, aes(x = Year, y = Harvest), color = "black") +
+  theme_minimal() +
+  labs(tag = "B")
+
+plot3 <-
+  ggplot()+
+  geom_line(data = sw_bear, aes(x = Year, y = Harvest), color = "black") +
+  theme_minimal() +
+  labs(tag = "C")
+
+grid.arrange(plot1, plot2, plot3, ncol = 2, nrow = 2)
+```
+
+To clean the data, each animals data sets were split into three sets, one for WMUs in the northern, southeastern, and southwestern region. This way, different regions and their harvest and active hunter numbers could be plotted against each other. Each cleaned black bear data set contains 12 entries and each cleaned moose data set contains 18 entries. For each larger region, the active hunter and harvest numbers were totaled for each year. Each cleaned data set also contains the same variables as the original data sets. Some cleaning was also applied to the WMU values as many of them had extra zeros and letter joined to them.
+
+TABLE?
+
+# Results {#sec-results}
+
+## Total Harvests
+
+By analyzing each hunting region, northern, southeastern, and southwestern, separately, we can examine how the total harvest rates of black bears and moose compare. @fig-north shows that the harvest rates for moose generally decreases before 2018 whereas the amount of black bear harvests increases from 2012 to 2016 before decreasing and increasing again in 2021. The trend lines on @fig-north cross three times between 2012 and 2023 with black bear harvest rates sometimes being higher than moose rates and vice versa. In comparison, they never cross in @fig-southeast with the number of black bear harvests always being more than moose harvests. Interestingly, the peak for both @fig-north and @fig-southeast for black bears are both in 2016 and have similar trends where they dramatically increase before 2016 and quickly fall after 2016. Whereas, in @fig-southwest the black bear harvest peak stays relatively consistent between 2016 and 2019 before greatly decreasing after 2016. In @fig-southwest, similar to @fig-southeast the number of black bear harvests is always higher than the number of moose harvests except in 2020 where they are equal. Interestingly, in all three graphs, the number of moose harvests tend to decrease overall between 2006 and 2023, most dramatically in the northern and southwestern regions. While all three of these graphs show that black bear harvest numbers are generally higher than moose, the number of harvests for each species are drastically different. In the northern region moose harvests reach around 5500 and black bears around 5000. Whereas, in the southeast region they reach 1500 and 3000, respectively, and in the southwestern region, 350 and 275 respectively. 
 
 ```{r}
 #| echo: false
 #| warning: false
 #| label: fig-north
-#| fig-cap: "Northern harvest numbers for moose and bears between 2009 and 2023"
+#| fig-cap: "Northern harvest numbers for moose and bears between 2006 and 2023"
 
 #create line graph 
 ggplot()+
@@ -88,7 +274,7 @@ ggplot()+
 #| echo: false
 #| warning: false
 #| label: fig-southeast
-#| fig-cap: "Southeastern harvest numbers for moose and bears between 2009 and 2023"
+#| fig-cap: "Southeastern harvest numbers for moose and bears between 2006 and 2023"
 
 #create line graph 
 ggplot()+
@@ -102,7 +288,7 @@ ggplot()+
 #| echo: false
 #| warning: false
 #| label: fig-southwest
-#| fig-cap: "Southwestern harvest numbers for moose and bears between 2009 and 2023"
+#| fig-cap: "Southwestern harvest numbers for moose and bears between 2006 and 2023"
 
 #create line graph 
 ggplot()+
@@ -111,6 +297,8 @@ ggplot()+
   theme_minimal()
 
 ```
+
+We can also compare the harvest rates of each species separately for each region. @fig-bearharvest we can see more clearly what we observed previously where the amount of black bears harvested is very different between each region. In the northern region, on average, has the most the most harvests followed by the southeast and then southwest region which is significantly lower than the other two regions. However, the northern and southeastern rates cross over at two points around 2020. @fig-mooseharvest shows a similar trend with the northern region always having the most harvests followed by the southeastern then the southwestern regions with no intersections. Both species likely experience this difference in harvest numbers because of the regions size. The northern region is significantly larger than the southeast and southwest regions. However, it is interesting that the northern and southeastern harvest rates are so similar between 2018 and 2023 given that the areas are of drastically different size. 
 
 ```{r}
 #| echo: false
@@ -130,7 +318,7 @@ ggplot()+
 #| echo: false
 #| warning: false
 #| label: fig-mooseharvest
-#| fig-cap: "Moose harvest numbers for the northern, southeastern and southwestern regions from 2012-2023"
+#| fig-cap: "Moose harvest numbers for the northern, southeastern and southwestern regions from 2006-2023"
 
 #create line graph 
 ggplot()+
@@ -140,11 +328,15 @@ ggplot()+
   theme_minimal()
 ```
 
+## Active Hunters
+
+Additionally, we can compare the number of active moose and black bear hunters in all three regions. From @fig-northhunters we can see that there are significantly more moose hunters than black bear hunters every year. However, the number of moose hunters has significantly decreased since 2006. In 2006 there was over 65,000 moose hunters and in 2023 there were only around 25,000 moose hunters. In comparison, the number of black bear hunters has remained relatively consistent compared to moose hunters since 2012. The southwest region (see @fig-swhunters) has a similar trend with the number of moose hunters greatly decreasing since 2006. Additionally, there has generally been less bear hunters in the region compared to moose hunters up until 2021 at which point the number of black bear hunters surpassed the number of moose hunters. The southeast region (see @fig-sehunters), however, has a different trend; the number of moose hunters in the region stayed relatively consistent from 2006 up to 2019 after which it dramatically decreased. Around this time the number of black bear hunters also surpassed the number of moose hunters. Since 2012 the number of black bear hunters has increased. The discrepancy between the number of hunters by regain could, again, be due to the fact that the southwestern and southeastern regions are much smaller than the northern region.
+
 ```{r}
 #| echo: false
 #| warning: false
 #| label: fig-swhunters
-#| fig-cap: "Number of active bear and moose hunters in the southwest region from 2009-2023"
+#| fig-cap: "Number of active bear and moose hunters in the southwest region from 2006-2023"
 
 #create line graph 
 ggplot()+
@@ -158,7 +350,7 @@ ggplot()+
 #| echo: false
 #| warning: false
 #| label: fig-sehunters
-#| fig-cap: "Number of active bear and moose hunters in the southeast region from 2009-2012"
+#| fig-cap: "Number of active bear and moose hunters in the southeast region from 2006-2012"
 
 #create line graph 
 ggplot()+
@@ -172,7 +364,7 @@ ggplot()+
 #| echo: false
 #| warning: false
 #| label: fig-northhunters
-#| fig-cap: "Number of active bear and moose hunters in the northern region from 2009-2023"
+#| fig-cap: "Number of active bear and moose hunters in the northern region from 2006-2023"
 
 #create line graph 
 ggplot()+
@@ -182,83 +374,94 @@ ggplot()+
 
 ```
 
-```{r}
-#| echo: false
-#| warning: false
-#| label: fig-swharvesthunters
-#| fig-cap: "Number of active bear hunters plotted against total bear harvests from 2012-2023 in the southwest region"
+## Active Hunters vs. Total Harvest
 
-#create line graph 
-ggplot()+
-  geom_line(data = sw_bear, aes(x = `Active Hunters`, y = Harvest), color = "blue") +
-  theme_minimal()
-```
+By examining the number of hunters against the number of harvests for both moose (@fig-harvesthuntermoose) and black bears (@fig-harvesthuntersbear) we can notice a few trends. Overall, for both moose and black bears in all three regions, as the number of hunters increases as does the total harvest. However, there are still many fluctuations in this trend, especially in the southeastern region. For both moose and black bear there are numerous dips and peaks where, as the number of hunters increase, the total harvest is significantly less or more than the overall average.
 
 ```{r}
 #| echo: false
 #| warning: false
-#| label: fig-seharvesthuntersbear
-#| fig-cap: "Number of active bear hunters plotted against total bear harvests from 2012-2023 in the southeast region"
+#| label: fig-harvesthuntermoose
+#| fig-cap: "Number of active moose hunters plotted against total moose harvests from 2006-2023 in the northern (A), southeastern (B), and southwestern (C) region"
 
-#create line graph 
-ggplot()+
-  geom_line(data = se_bear, aes(x = `Active Hunters`, y = Harvest), color = "blue") +
-  theme_minimal()
-```
-
-```{r}
-#| echo: false
-#| warning: false
-#| label: fig-northharvesthuntersbear
-#| fig-cap: "Number of active bear hunters plotted against total bear harvests from 2012-2023 in the northern region"
-
-#create line graph 
-ggplot()+
-  geom_line(data = north_bear, aes(x = `Active Hunters`, y = Harvest), color = "blue") +
-  theme_minimal()
-```
-
-```{r}
-#| echo: false
-#| warning: false
-#| label: fig-swharvesthuntersmoose
-#| fig-cap: "Number of active moose hunters plotted against total moose harvests from 2009-2023 in the southwest region"
-
-#create line graph 
-ggplot()+
-  geom_line(data = sw_moose, aes(x = `Active Hunters`, y = `Total Harvest`), color = "red") +
-  theme_minimal()
-```
-
-```{r}
-#| echo: false
-#| warning: false
-#| label: fig-seharvesthuntersmoose
-#| fig-cap: "Number of active moose hunters plotted against total moose harvests from 2009-2023 in the southeast region"
-
-#create line graph 
-ggplot()+
-  geom_line(data = se_moose, aes(x = `Active Hunters`, y = `Total Harvest`), color = "red") +
-  theme_minimal()
-```
-
-```{r}
-#| echo: false
-#| warning: false
-#| label: fig-northharvesthuntersmoose
-#| fig-cap: "Number of active moose hunters plotted against total moose harvests from 2009-2023 in the northern region"
-
-#create line graph 
-ggplot()+
+plot1 <- 
+  ggplot()+
   geom_line(data = north_moose, aes(x = `Active Hunters`, y = `Total Harvest`), color = "red") +
-  theme_minimal()
+  theme_minimal()+
+  labs(tag = "A")
+
+plot2 <-
+  ggplot()+
+  geom_line(data = se_moose, aes(x = `Active Hunters`, y = `Total Harvest`), color = "red") +
+  theme_minimal() +
+  labs(tag = "B")
+
+plot3 <-
+  ggplot()+
+  geom_line(data = sw_moose, aes(x = `Active Hunters`, y = `Total Harvest`), color = "red") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 70))
+  labs(tag = "C")
+
+grid.arrange(plot1, plot2, plot3, ncol = 2, nrow = 2)
 ```
 
-# Model
+```{r}
+#| echo: false
+#| warning: false
+#| label: fig-harvesthuntersbear
+#| fig-cap: "Number of active bear hunters plotted against total bear harvests from 2012-2023 in the northern (A), southeastern (B), and southwestern (C) region"
 
-# Results
+plot1 <- 
+  ggplot()+
+  geom_line(data = north_bear, aes(x = `Active Hunters`, y = Harvest), color = "blue") +
+  theme_minimal()+
+  labs(tag = "A")
 
-# Discussion
+plot2 <-
+  ggplot()+
+  geom_line(data = se_bear, aes(x = `Active Hunters`, y = Harvest), color = "blue") +
+  theme_minimal() +
+  labs(tag = "B")
+
+plot3 <-
+  ggplot()+
+  geom_line(data = sw_bear, aes(x = `Active Hunters`, y = Harvest), color = "blue") +
+  theme_minimal() +
+  labs(tag = "C")
+
+grid.arrange(plot1, plot2, plot3, ncol = 2, nrow = 2)
+```
+
+We can also compare the number of hunters against the number of harvests for both moose (@fig-moose) and black bear (@fig-bear) for each WMU. From both graphs we can see that the more northern the WMUs tend to have higher harvest counts for lower hunter counts. Whereas, when the number of hunters is lower in the more southern regions, the less harvests there are. Overall, the more hunters the more harvests collected.  
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: fig-moose
+#| fig-cap: "Number of moose harvested in each WMU from 2006-2023"
+
+#create line graph 
+ggplot(all_moose, aes(x = `Active Hunters`, y = `Total Harvest`, color = WMU))+
+scale_color_distiller(palette = "RdPu")+
+geom_point(show.legend = TRUE)+
+theme_minimal()
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: fig-bear
+#| fig-cap: "Number of bear harvested in each WMU from 2012-2023"
+
+#create line graph 
+ggplot(all_bear, aes(x = `Active Hunters`, y = Harvest, color = WMU))+
+geom_point(show.legend = TRUE)+
+scale_color_distiller(palette = "YlGnBu")+
+theme_minimal()
+```
+
+# Discussion {#sec-discussion}
 
 ## What was done
 
