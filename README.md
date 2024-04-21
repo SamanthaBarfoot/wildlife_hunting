@@ -5,7 +5,7 @@ This paper analyzes Ontario wildlife harvest counts, specifically moose and blac
 
 ## Overview
 
-This folder contains the code and data supporting an analysis of Ontario wildlfie populations and the impact of hunting on species such as white tailed deer, turkeys, and black bears. This is done by looking at harvest numbers and number of active hunters since 2006.
+This folder contains the code and data supporting an analysis of Ontario wildlife hunting of moose and black bears. This is done by looking at harvest numbers and number of active hunters since 2006.
 
 ## Obtaining Data
 The two data sets used in this analysis need to be downloaded from the Ontario Data Catalogue. This is done manually and then moved to data/raw_data/.
