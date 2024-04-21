@@ -5,7 +5,7 @@ author: Samantha Barfoot
 thanks: "Code and data are available at: https://github.com/SamanthaBarfoot/wildlife_hunting.git"
 date: today
 date-format: long
-abstract: "This paper analyzes Ontario wildlife harvest counts, specifically moose and black bears, and the number of active hunters based on region. The analysis examines harvest counts from 2012 to 2023 across northern, southeastern, and southwestern Ontario. It was found that..."
+abstract: "This paper analyzes Ontario wildlife harvest counts, specifically moose and black bears, and the number of active hunters based on region. The analysis examines harvest counts from 2012 to 2023 across northern, southeastern, and southwestern Ontario. It was found that moose harvests have decreased over the past 20 years whereas black bear hunting has stayed relativly consistant. The implications and causiontions of these trends are important for species population in Ontario as well as the Ontario hunting industry."
 format: pdf
 number-sections: true
 table-of-contents: true
@@ -27,15 +27,11 @@ library(gridExtra)
 
 Every year the Ontario Ministry of Natural Resources and Forestry records data on the number of black bears and moose hunted per year and the number of active hunters per year. Ontario moose hunting season typically runs from early September to late October [@moose] and black bear season runs from early May to mid June or mid August to late November depending on the region [@bear]. To hunt either of these animals, hunters must have the proper licence and are responsible for identifying their target and obtaining tags. Moose tags indicate what type of moose a hunter is allowed to harvest whether it be a cow, calf, or bull [@moose]. Hunting in Ontario is a significant contributor to the Ontario economy and tourism industry. It supports the employment of thousands of people and some years generates more money than the film and television industry in Ontario [@huntAs]. One year Canadian hunters spent around \$1.2 billion on hunting trips with \$70 on the hunting licences alone [@huntAs]. In 2000, the hunting industry represented \$1.5 billion of the economy [@huntAs]. Despite being such a large industry there is still a significant amount of poaching and other illegal hunting practices performed in Ontario [@poachNum]. In 2016 there were 384 major offences related to these practices [@poachNum].
 
-Therefore, it is important to properly regulate and monitor the wildlife populations as well as the hunting and harvest numbers so that species are not put at risk by over hunting. Additionally, it is important to analyze how these levels change over the years and what might cause these changes. Alongside over hunting, having too large a population of a certain species can also put a strain on the ecosystem in which case hunting is an important method of regulating population. This paper explores the trends of active hunter and harvest numbers from 2006-2023 for moose and 2021-2023 for black bears.
+Therefore, it is important to properly regulate and monitor the wildlife populations as well as the hunting and harvest numbers so that species are not put at risk by over hunting. Additionally, it is important to analyze how these levels change over the years and what might cause these changes. Alongside over hunting, having too large a population of a certain species can also put a strain on the ecosystem in which case hunting is an important method of regulating population. The Ontario hunting industry is a significant economic contributor and, therefore, it is important to the province for hunting practices to continue. This paper examines these hunting activities in Ontario and how they have changed over the past few years. Specifically focusing on two majorly hunted species, moose and black bear, which are favoured by trophy hunters. Using data from the Ontario Data Catalogue active hunter and harvest numbers from 2006-2023 for moose and 2021-2023 for black bears are analyzed. From this analysis, it was found that moose harvests have drastically decreased since 2006 as has the number of active moose hunters. In comparison, black bear harvesting and hunting has stayed relatively consistent. While moose hunting has decreased there is still a significant population of moose hunters, especially compared to black bear hunters.
 
-WHAT WAS FOUND
-
-The estimand of this paper is the correlation between the number of active hunters in Ontario and the number of annual moose and black bear harvests. Specifically, we examine how these numbers vary with regard to region and time 
+The estimand of this paper is the correlation between the number of active hunters in Ontario and the number of annual moose and black bear harvests. Specifically, we examine how these numbers vary with regard to region and time.
 
 @sec-data of this paper covers the broader context of the Ontario moose and black bear hunting activty and harvest data sets from the Ontario Data Catalogue. It examines the variables used in the data set using graphs to help explain them as well as discussing high-level aspects of the data cleaning process. @sec-results further examines the relationship between the variables and the finding from the analysis of the two data sets. The @sec-discussion section of this paper explores what was learned from this analysis and the implications it has on Ontario's hunting industry and environment. Additionally, it identifies possible biases and factors that may have effected the analysis. 
-
-MORE ABOUT THE SECTIONS
 
 The graphs and tables in this paper were made with [@citeR] using R studio. The creation of these graphs and tables were made with `ggplot` [@ggplotRef], `tiddyverse` [@tidyverseRef], `gridExtra` [@gridRef] packages. The analysis and cleaning of the data was conducted with and `dyplr` [@dplRef ], `MASS` [@massRef], `janitor` [@janitorRef] and `stringr` [@stringRef] packages.
 
@@ -142,7 +138,7 @@ grid.arrange(plot1, plot2, plot3, ncol = 2, nrow = 2)
 #| echo: false
 #| warning: false
 #| label: fig-harvestmoosetypes
-#| fig-cap: "Number of cow, bull, and calf moose types harvested between 2012 and 2023 in the northern (A), southeastern (B), and southwestern (C) region"
+#| fig-cap: "Total number of cow, bull, and calf moose types harvested between 2012 and 2023"
 
 plot1 <- 
   ggplot()+
@@ -248,11 +244,9 @@ grid.arrange(plot1, plot2, plot3, ncol = 2, nrow = 2)
 
 To clean the data, each animals data sets were split into three sets, one for WMUs in the northern, southeastern, and southwestern region. This way, different regions and their harvest and active hunter numbers could be plotted against each other. Each cleaned black bear data set contains 12 entries and each cleaned moose data set contains 18 entries. For each larger region, the active hunter and harvest numbers were totaled for each year. Each cleaned data set also contains the same variables as the original data sets. Some cleaning was also applied to the WMU values as many of them had extra zeros and letter joined to them.
 
-TABLE?
-
 # Results {#sec-results}
 
-## Total Harvests
+## Total Harvest Trends
 
 By analyzing each hunting region, northern, southeastern, and southwestern, separately, we can examine how the total harvest rates of black bears and moose compare. @fig-north shows that the harvest rates for moose generally decreases before 2018 whereas the amount of black bear harvests increases from 2012 to 2016 before decreasing and increasing again in 2021. The trend lines on @fig-north cross three times between 2012 and 2023 with black bear harvest rates sometimes being higher than moose rates and vice versa. In comparison, they never cross in @fig-southeast with the number of black bear harvests always being more than moose harvests. Interestingly, the peak for both @fig-north and @fig-southeast for black bears are both in 2016 and have similar trends where they dramatically increase before 2016 and quickly fall after 2016. Whereas, in @fig-southwest the black bear harvest peak stays relatively consistent between 2016 and 2019 before greatly decreasing after 2016. In @fig-southwest, similar to @fig-southeast the number of black bear harvests is always higher than the number of moose harvests except in 2020 where they are equal. Interestingly, in all three graphs, the number of moose harvests tend to decrease overall between 2006 and 2023, most dramatically in the northern and southwestern regions. While all three of these graphs show that black bear harvest numbers are generally higher than moose, the number of harvests for each species are drastically different. In the northern region moose harvests reach around 5500 and black bears around 5000. Whereas, in the southeast region they reach 1500 and 3000, respectively, and in the southwestern region, 350 and 275 respectively. 
 
@@ -328,7 +322,9 @@ ggplot()+
   theme_minimal()
 ```
 
-## Active Hunters
+By examining the data sets we also learn that for black bears the average harvest between 2012 and 2023 is 3,160 in the northern region, 2,046 in the southeastern region, and 177 in the southwestern region. In compression, for moose between 2006 and 2023 it is 3,356 in the northern region, 1,072 in the southeastern region, and 129 in the southwestern region. The maximum number of moose harvests was in 2006 with 7,342 total harvests.The minimum number of moose harvests was in 2023 with 2,915 total harvests. Whereas, for black bears the maximum number of harvests was in 2016 with 8,152 harvests. The minimum was in 2021 with 3,785 active hunters.
+
+## Active Hunter Trends
 
 Additionally, we can compare the number of active moose and black bear hunters in all three regions. From @fig-northhunters we can see that there are significantly more moose hunters than black bear hunters every year. However, the number of moose hunters has significantly decreased since 2006. In 2006 there was over 65,000 moose hunters and in 2023 there were only around 25,000 moose hunters. In comparison, the number of black bear hunters has remained relatively consistent compared to moose hunters since 2012. The southwest region (see @fig-swhunters) has a similar trend with the number of moose hunters greatly decreasing since 2006. Additionally, there has generally been less bear hunters in the region compared to moose hunters up until 2021 at which point the number of black bear hunters surpassed the number of moose hunters. The southeast region (see @fig-sehunters), however, has a different trend; the number of moose hunters in the region stayed relatively consistent from 2006 up to 2019 after which it dramatically decreased. Around this time the number of black bear hunters also surpassed the number of moose hunters. Since 2012 the number of black bear hunters has increased. The discrepancy between the number of hunters by regain could, again, be due to the fact that the southwestern and southeastern regions are much smaller than the northern region.
 
@@ -374,9 +370,11 @@ ggplot()+
 
 ```
 
+By examining the data sets we also learn that for black bears the average number of active hunters between 2012 and 2023 is 12,736 in the northern region, 12,717 in the southeastern region, and 499 in the southwestern region. In compression, for moose between 2006 and 2023 it is 49,666 in the northern region, 19,298 in the southeastern region, and 1332 in the southwestern region. The maximum number of active moose hunters was in 2010 with 88,369 total hunters. The minimum number of active hunters was in 2023 with 36,069 total hunters. Whereas, for black bears the maximum number of hunters was in 2016 with 31,480 hunters. The minimum was in 2013 with 20,891 active hunters.
+
 ## Active Hunters vs. Total Harvest
 
-By examining the number of hunters against the number of harvests for both moose (@fig-harvesthuntermoose) and black bears (@fig-harvesthuntersbear) we can notice a few trends. Overall, for both moose and black bears in all three regions, as the number of hunters increases as does the total harvest. However, there are still many fluctuations in this trend, especially in the southeastern region. For both moose and black bear there are numerous dips and peaks where, as the number of hunters increase, the total harvest is significantly less or more than the overall average.
+By examining the number of hunters against the number of harvests for both moose (@fig-harvesthuntermoose) and black bears (@fig-harvesthuntersbear) we can notice a few trends. Overall, for both moose and black bears in all three regions, there is a linear relationship between the number of hunters and the number of harvests. From the grpahs we can see that as the number of hunters increases as does the total harvest. However, there are still many fluctuations in this trend, especially in the southeastern region. For both moose and black bear there are numerous dips and peaks where, as the number of hunters increase, the total harvest is significantly less or more than the overall average.
 
 ```{r}
 #| echo: false
@@ -388,19 +386,21 @@ plot1 <-
   ggplot()+
   geom_line(data = north_moose, aes(x = `Active Hunters`, y = `Total Harvest`), color = "red") +
   theme_minimal()+
+  theme(axis.text.x = element_text(angle = 70))+
   labs(tag = "A")
 
 plot2 <-
   ggplot()+
   geom_line(data = se_moose, aes(x = `Active Hunters`, y = `Total Harvest`), color = "red") +
   theme_minimal() +
+  theme(axis.text.x = element_text(angle = 70))+
   labs(tag = "B")
 
 plot3 <-
   ggplot()+
   geom_line(data = sw_moose, aes(x = `Active Hunters`, y = `Total Harvest`), color = "red") +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 70))
+  theme(axis.text.x = element_text(angle = 70))+
   labs(tag = "C")
 
 grid.arrange(plot1, plot2, plot3, ncol = 2, nrow = 2)
@@ -416,18 +416,21 @@ plot1 <-
   ggplot()+
   geom_line(data = north_bear, aes(x = `Active Hunters`, y = Harvest), color = "blue") +
   theme_minimal()+
+  theme(axis.text.x = element_text(angle = 70))+
   labs(tag = "A")
 
 plot2 <-
   ggplot()+
   geom_line(data = se_bear, aes(x = `Active Hunters`, y = Harvest), color = "blue") +
   theme_minimal() +
+  theme(axis.text.x = element_text(angle = 70))+
   labs(tag = "B")
 
 plot3 <-
   ggplot()+
   geom_line(data = sw_bear, aes(x = `Active Hunters`, y = Harvest), color = "blue") +
   theme_minimal() +
+  theme(axis.text.x = element_text(angle = 70))+
   labs(tag = "C")
 
 grid.arrange(plot1, plot2, plot3, ncol = 2, nrow = 2)
@@ -461,15 +464,23 @@ scale_color_distiller(palette = "YlGnBu")+
 theme_minimal()
 ```
 
+Overall, from all of these graphs we can see that every year less and less people are actively hunting moose. The number of people hunting moose and the number of moose being harvested is decreasing. Whereas, hunting black bears peaked greatly in 2016 but has since gone back to its pre 2016 harvest levels and appears to be staying relatively consistent. Additionally, we can see that while there are often more moose hunters than black bear hunters, more black bears are harvested yearly then moose on average. 
+
 # Discussion {#sec-discussion}
 
-## What was done
+This paper has analyzed the correlation between the number of active hunters and the number of moose and black bear harvests in Ontario and the impact of time and region on these numbers. Additionally it examined the number of harvests against the number of active hunters. The analysis focused on three main regions, the northern, southeastern, and southwestern areas of Ontario. This was done with the analysis of two data sets obtained from the Ontario Data Catalogue.
 
-## Something we learned about the world
+## Ontario moose hunting is declining 
 
-## Another thing we learned about the world
+
+
+## Black bears are popular hunting targets in Ontario
 
 ## Weaknesses
+
+The primary weakness of this analysis is its lack of depth. This is because it only focuses on and uses data with two main variables, number of active hunters and harvests. From the data alone it is difficult to know the exact reasons for certain trends, such as the decrease in moose harvesting without external research. This analysis could have been made stronger if paired with moose and black bear population data. More types of data and variables would have added more depth to this analysis.
+
+Another weakness is that the data doesn't cover a very large time span. The black bear data is only from 2012 to 2023 whereas the moose data covers a larger time frame from 2006 to 2023. Analyzing a data set with a larger range would provide more depth. This would also be beneficial as trends related to populations provide more insight when analyzed over a large period of time. The moose data only shows decreasing harvest rates so it would be interesting to see when they began increasing. 
 
 ## Looking forward
 
