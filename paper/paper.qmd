@@ -105,7 +105,7 @@ The data sets used in this report, *Moose hunting activity and harvests* and *Bl
 
 ## Variables of Interest
 
-The original data set for moose hunting and harvests obtained from the Ontario Data Catalogue contained seven variables. The first variable,*WMU*, is the Wildlife Management Unit which indicates the specific region in Ontario. There are a total of 95 different WMUs which are grouped into three larger regions, northern, southeastern, and southwestern Ontario. The second variable, *Year*, indicates the harvest year. *Active Hunter* (see @fig-huntersmoose) indicates how many hunters were active in that specific WMU and year. *Bull Harvest*, *Cow Harvest*, and *Calf Harvest* (see @fig-harvestmoosetypes) indicate the respective number of harvests for each type of moose for that specific WMU and year. *Total Harvest* (see @fig-harvestmoose) is the sum of all bull, cow, and calf harvests for that specific WMU and year. The original data set for black bear hunting and harvests contains the same variables of WMU, year, and active hunters (see @fig-huntersbear). However, instead of bull, cow, calf, and total harvest there is only one harvest variable called *Harvest* (see @fig-harvestbear) as all black bears are grouped as one. 
+The original data set for moose hunting and harvests obtained from the Ontario Data Catalogue contained seven variables. The first variable,*WMU*, is the Wildlife Management Unit which indicates the specific region in Ontario. There are a total of 95 different WMUs which are grouped into three larger regions, northern, southeastern, and southwestern Ontario. However, the black bear data set only has data from WMUs 1 through 82 and the moose data set has data from WMUs 1-65. The second variable, *Year*, indicates the harvest year. *Active Hunter* (see @fig-huntersmoose) indicates how many hunters were active in that specific WMU and year. *Bull Harvest*, *Cow Harvest*, and *Calf Harvest* (see @fig-harvestmoosetypes) indicate the respective number of harvests for each type of moose for that specific WMU and year. *Total Harvest* (see @fig-harvestmoose) is the sum of all bull, cow, and calf harvests for that specific WMU and year. The original data set for black bear hunting and harvests contains the same variables of WMU, year, and active hunters (see @fig-huntersbear). However, instead of bull, cow, calf, and total harvest there is only one harvest variable called *Harvest* (see @fig-harvestbear) as all black bears are grouped as one. 
 
 ```{r}
 #| echo: false
@@ -114,20 +114,23 @@ The original data set for moose hunting and harvests obtained from the Ontario D
 #| fig-cap: "Number of active moose hunters between 2012 and 2023 in the northern (A), southeastern (B), and southwestern (C) region"
 
 plot1 <- 
-  ggplot()+
-  geom_line(data = north_moose, aes(x = Year, y = `Active Hunters`), color = "black") +
-  theme_minimal()+
+  ggplot() +
+  geom_line(data = north_moose, aes(x = Year, y = `Active Hunters`),
+            color = "black") +
+  theme_minimal() +
   labs(tag = "A")
 
 plot2 <-
-  ggplot()+
-  geom_line(data = se_moose, aes(x = Year, y = `Active Hunters`), color = "black") +
+  ggplot() +
+  geom_line(data = se_moose, aes(x = Year, y = `Active Hunters`),
+            color = "black") +
   theme_minimal() +
   labs(tag = "B")
 
 plot3 <-
-  ggplot()+
-  geom_line(data = sw_moose, aes(x = Year, y = `Active Hunters`), color = "black") +
+  ggplot() +
+  geom_line(data = sw_moose, aes(x = Year, y = `Active Hunters`),
+            color = "black") +
   theme_minimal() +
   labs(tag = "C")
 
@@ -141,20 +144,23 @@ grid.arrange(plot1, plot2, plot3, ncol = 2, nrow = 2)
 #| fig-cap: "Total number of cow, bull, and calf moose types harvested between 2012 and 2023"
 
 plot1 <- 
-  ggplot()+
-  geom_line(data = types_moose, aes(x = Year, y = `Cow Harvest`), color = "black") +
+  ggplot() +
+  geom_line(data = types_moose, aes(x = Year, y = `Cow Harvest`),
+            color = "black") +
   theme_minimal()+
   labs(tag = "A")
 
 plot2 <-
-  ggplot()+
-  geom_line(data = types_moose, aes(x = Year, y = `Calf Harvest`), color = "black") +
+  ggplot() +
+  geom_line(data = types_moose, aes(x = Year, y = `Calf Harvest`),
+            color = "black") +
   theme_minimal() +
   labs(tag = "B")
 
 plot3 <-
-  ggplot()+
-  geom_line(data = types_moose, aes(x = Year, y = `Bull Harvest`), color = "black") +
+  ggplot() +
+  geom_line(data = types_moose, aes(x = Year, y = `Bull Harvest`),
+            color = "black") +
   theme_minimal() +
   labs(tag = "C")
 
@@ -168,20 +174,23 @@ grid.arrange(plot1, plot2, plot3, ncol = 2, nrow = 2)
 #| fig-cap: "Number of moose harvested between 2012 and 2023 in the northern (A), southeastern (B), and southwestern (C) region"
 
 plot1 <- 
-  ggplot()+
-  geom_line(data = north_moose, aes(x = Year, y = `Total Harvest`), color = "black") +
-  theme_minimal()+
+  ggplot() +
+  geom_line(data = north_moose, aes(x = Year, y = `Total Harvest`),
+            color = "black") +
+  theme_minimal() +
   labs(tag = "A")
 
 plot2 <-
-  ggplot()+
-  geom_line(data = se_moose, aes(x = Year, y = `Total Harvest`), color = "black") +
+  ggplot() +
+  geom_line(data = se_moose, aes(x = Year, y = `Total Harvest`),
+            color = "black") +
   theme_minimal() +
   labs(tag = "B")
 
 plot3 <-
-  ggplot()+
-  geom_line(data = sw_moose, aes(x = Year, y = `Total Harvest`), color = "black") +
+  ggplot() +
+  geom_line(data = sw_moose, aes(x = Year, y = `Total Harvest`),
+            color = "black") +
   theme_minimal() +
   labs(tag = "C")
 
@@ -195,20 +204,23 @@ grid.arrange(plot1, plot2, plot3, ncol = 2, nrow = 2)
 #| fig-cap: "Number of active black bear hunters between 2012 and 2023 in the northern (A), southeastern (B), and southwestern (C) region"
 
 plot1 <- 
-  ggplot()+
-  geom_line(data = north_bear, aes(x = Year, y = `Active Hunters`), color = "black") +
-  theme_minimal()+
+  ggplot() +
+  geom_line(data = north_bear, aes(x = Year, y = `Active Hunters`),
+            color = "black") +
+  theme_minimal() +
   labs(tag = "A")
 
 plot2 <-
-  ggplot()+
-  geom_line(data = se_bear, aes(x = Year, y = `Active Hunters`), color = "black") +
+  ggplot() +
+  geom_line(data = se_bear, aes(x = Year, y = `Active Hunters`),
+            color = "black") +
   theme_minimal() +
   labs(tag = "B")
 
 plot3 <-
-  ggplot()+
-  geom_line(data = sw_bear, aes(x = Year, y = `Active Hunters`), color = "black") +
+  ggplot() +
+  geom_line(data = sw_bear, aes(x = Year, y = `Active Hunters`),
+            color = "black") +
   theme_minimal() +
   labs(tag = "C")
 
@@ -222,20 +234,23 @@ grid.arrange(plot1, plot2, plot3, ncol = 2, nrow = 2)
 #| fig-cap: "Number of bears harvested between 2012 and 2023 in the northern (A), southeastern (B), and southwestern (C) region"
 
 plot1 <- 
-  ggplot()+
-  geom_line(data = north_bear, aes(x = Year, y = Harvest), color = "black") +
-  theme_minimal()+
+  ggplot() +
+  geom_line(data = north_bear, aes(x = Year, y = Harvest),
+            color = "black") +
+  theme_minimal() +
   labs(tag = "A")
 
 plot2 <-
-  ggplot()+
-  geom_line(data = se_bear, aes(x = Year, y = Harvest), color = "black") +
+  ggplot() +
+  geom_line(data = se_bear, aes(x = Year, y = Harvest),
+            color = "black") +
   theme_minimal() +
   labs(tag = "B")
 
 plot3 <-
-  ggplot()+
-  geom_line(data = sw_bear, aes(x = Year, y = Harvest), color = "black") +
+  ggplot() +
+  geom_line(data = sw_bear, aes(x = Year, y = Harvest),
+            color = "black") +
   theme_minimal() +
   labs(tag = "C")
 
@@ -257,9 +272,10 @@ By analyzing each hunting region, northern, southeastern, and southwestern, sepa
 #| fig-cap: "Northern harvest numbers for moose and bears between 2006 and 2023"
 
 #create line graph 
-ggplot()+
+ggplot() +
   geom_line(data = north_bear, aes(x = Year, y = Harvest), color = "blue") + 
-  geom_line(data = north_moose, aes(x = Year, y = `Total Harvest`), color = "red")+
+  geom_line(data = north_moose, aes(x = Year, y = `Total Harvest`),
+            color = "red") +
   theme_minimal()
 
 ```
@@ -271,9 +287,10 @@ ggplot()+
 #| fig-cap: "Southeastern harvest numbers for moose and bears between 2006 and 2023"
 
 #create line graph 
-ggplot()+
+ggplot() +
   geom_line(data = se_bear, aes(x = Year, y = Harvest), color = "blue") + 
-  geom_line(data = se_moose, aes(x = Year, y = `Total Harvest`), color = "red")+
+  geom_line(data = se_moose, aes(x = Year, y = `Total Harvest`),
+            color = "red") +
   theme_minimal() 
 
 ```
@@ -285,9 +302,10 @@ ggplot()+
 #| fig-cap: "Southwestern harvest numbers for moose and bears between 2006 and 2023"
 
 #create line graph 
-ggplot()+
+ggplot() +
   geom_line(data = sw_bear, aes(x = Year, y = Harvest), color = "blue") + 
-  geom_line(data = sw_moose, aes(x = Year, y = `Total Harvest`), color = "red")+
+  geom_line(data = sw_moose, aes(x = Year, y = `Total Harvest`),
+            color = "red") +
   theme_minimal()
 
 ```
@@ -301,10 +319,10 @@ We can also compare the harvest rates of each species separately for each region
 #| fig-cap: "Bear harvest numbers for the northern, southeastern and southwestern regions from 2012-2023"
 
 #create line graph 
-ggplot()+
+ggplot() +
   geom_line(data = sw_bear, aes(x = Year, y = Harvest), color = "blue") + 
-  geom_line(data = se_bear, aes(x = Year, y = Harvest), color = "red")+
-  geom_line(data = north_bear, aes(x = Year, y = Harvest), color = "green")+
+  geom_line(data = se_bear, aes(x = Year, y = Harvest), color = "red") +
+  geom_line(data = north_bear, aes(x = Year, y = Harvest), color = "green") +
   theme_minimal()
 ```
 
@@ -315,10 +333,13 @@ ggplot()+
 #| fig-cap: "Moose harvest numbers for the northern, southeastern and southwestern regions from 2006-2023"
 
 #create line graph 
-ggplot()+
-  geom_line(data = sw_moose, aes(x = Year, y = `Total Harvest`), color = "blue") + 
-  geom_line(data = se_moose, aes(x = Year, y = `Total Harvest`), color = "red")+
-  geom_line(data = north_moose, aes(x = Year, y = `Total Harvest`), color = "green")+
+ggplot() +
+  geom_line(data = sw_moose, aes(x = Year, y = `Total Harvest`),
+            color = "blue") + 
+  geom_line(data = se_moose, aes(x = Year, y = `Total Harvest`),
+            color = "red") +
+  geom_line(data = north_moose, aes(x = Year, y = `Total Harvest`),
+            color = "green") +
   theme_minimal()
 ```
 
@@ -335,9 +356,11 @@ Additionally, we can compare the number of active moose and black bear hunters i
 #| fig-cap: "Number of active bear and moose hunters in the southwest region from 2006-2023"
 
 #create line graph 
-ggplot()+
-  geom_line(data = sw_bear, aes(x = Year, y = `Active Hunters`), color = "blue") +
-  geom_line(data = sw_moose, aes(x = Year, y = `Active Hunters`), color = "red")+
+ggplot() +
+  geom_line(data = sw_bear, aes(x = Year, y = `Active Hunters`),
+            color = "blue") +
+  geom_line(data = sw_moose, aes(x = Year, y = `Active Hunters`),
+            color = "red") +
   theme_minimal()
 
 ```
@@ -349,9 +372,11 @@ ggplot()+
 #| fig-cap: "Number of active bear and moose hunters in the southeast region from 2006-2012"
 
 #create line graph 
-ggplot()+
-  geom_line(data = se_bear, aes(x = Year, y = `Active Hunters`), color = "blue") +
-  geom_line(data = se_moose, aes(x = Year, y = `Active Hunters`), color = "red")+
+ggplot() +
+  geom_line(data = se_bear, aes(x = Year, y = `Active Hunters`),
+            color = "blue") +
+  geom_line(data = se_moose, aes(x = Year, y = `Active Hunters`),
+            color = "red") +
   theme_minimal()
 
 ```
@@ -363,9 +388,11 @@ ggplot()+
 #| fig-cap: "Number of active bear and moose hunters in the northern region from 2006-2023"
 
 #create line graph 
-ggplot()+
-  geom_line(data = north_bear, aes(x = Year, y = `Active Hunters`), color = "blue") +
-  geom_line(data = north_moose, aes(x = Year, y = `Active Hunters`), color = "red")+
+ggplot() +
+  geom_line(data = north_bear, aes(x = Year, y = `Active Hunters`),
+            color = "blue") +
+  geom_line(data = north_moose, aes(x = Year, y = `Active Hunters`),
+            color = "red") +
   theme_minimal()
 
 ```
@@ -383,24 +410,27 @@ By examining the number of hunters against the number of harvests for both moose
 #| fig-cap: "Number of active moose hunters plotted against total moose harvests from 2006-2023 in the northern (A), southeastern (B), and southwestern (C) region"
 
 plot1 <- 
-  ggplot()+
-  geom_line(data = north_moose, aes(x = `Active Hunters`, y = `Total Harvest`), color = "red") +
-  theme_minimal()+
-  theme(axis.text.x = element_text(angle = 70))+
+  ggplot() +
+  geom_line(data = north_moose, aes(x = `Active Hunters`, y = `Total Harvest`),
+            color = "red") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 70)) +
   labs(tag = "A")
 
 plot2 <-
-  ggplot()+
-  geom_line(data = se_moose, aes(x = `Active Hunters`, y = `Total Harvest`), color = "red") +
+  ggplot() +
+  geom_line(data = se_moose, aes(x = `Active Hunters`, y = `Total Harvest`),
+            color = "red") +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 70))+
+  theme(axis.text.x = element_text(angle = 70)) +
   labs(tag = "B")
 
 plot3 <-
-  ggplot()+
-  geom_line(data = sw_moose, aes(x = `Active Hunters`, y = `Total Harvest`), color = "red") +
+  ggplot() +
+  geom_line(data = sw_moose, aes(x = `Active Hunters`, y = `Total Harvest`),
+            color = "red") +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 70))+
+  theme(axis.text.x = element_text(angle = 70)) +
   labs(tag = "C")
 
 grid.arrange(plot1, plot2, plot3, ncol = 2, nrow = 2)
@@ -413,24 +443,27 @@ grid.arrange(plot1, plot2, plot3, ncol = 2, nrow = 2)
 #| fig-cap: "Number of active bear hunters plotted against total bear harvests from 2012-2023 in the northern (A), southeastern (B), and southwestern (C) region"
 
 plot1 <- 
-  ggplot()+
-  geom_line(data = north_bear, aes(x = `Active Hunters`, y = Harvest), color = "blue") +
+  ggplot() +
+  geom_line(data = north_bear, aes(x = `Active Hunters`, y = Harvest),
+            color = "blue") +
   theme_minimal()+
-  theme(axis.text.x = element_text(angle = 70))+
+  theme(axis.text.x = element_text(angle = 70)) +
   labs(tag = "A")
 
 plot2 <-
-  ggplot()+
-  geom_line(data = se_bear, aes(x = `Active Hunters`, y = Harvest), color = "blue") +
+  ggplot() +
+  geom_line(data = se_bear, aes(x = `Active Hunters`, y = Harvest),
+            color = "blue") +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 70))+
+  theme(axis.text.x = element_text(angle = 70)) +
   labs(tag = "B")
 
 plot3 <-
-  ggplot()+
-  geom_line(data = sw_bear, aes(x = `Active Hunters`, y = Harvest), color = "blue") +
+  ggplot() +
+  geom_line(data = sw_bear, aes(x = `Active Hunters`, y = Harvest),
+            color = "blue") +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 70))+
+  theme(axis.text.x = element_text(angle = 70)) +
   labs(tag = "C")
 
 grid.arrange(plot1, plot2, plot3, ncol = 2, nrow = 2)
@@ -445,9 +478,9 @@ We can also compare the number of hunters against the number of harvests for bot
 #| fig-cap: "Number of moose harvested in each WMU from 2006-2023"
 
 #create line graph 
-ggplot(all_moose, aes(x = `Active Hunters`, y = `Total Harvest`, color = WMU))+
-scale_color_distiller(palette = "RdPu")+
-geom_point(show.legend = TRUE)+
+ggplot(all_moose, aes(x = `Active Hunters`, y = `Total Harvest`, color = WMU)) +
+scale_color_distiller(palette = "RdPu") +
+geom_point(show.legend = TRUE) +
 theme_minimal()
 ```
 
@@ -458,9 +491,9 @@ theme_minimal()
 #| fig-cap: "Number of bear harvested in each WMU from 2012-2023"
 
 #create line graph 
-ggplot(all_bear, aes(x = `Active Hunters`, y = Harvest, color = WMU))+
-geom_point(show.legend = TRUE)+
-scale_color_distiller(palette = "YlGnBu")+
+ggplot(all_bear, aes(x = `Active Hunters`, y = Harvest, color = WMU)) +
+geom_point(show.legend = TRUE) +
+scale_color_distiller(palette = "YlGnBu") +
 theme_minimal()
 ```
 
