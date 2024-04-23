@@ -16,10 +16,10 @@ library(arrow)
 library(lintr)
 
 #### Read in data ####
-raw_data_moose <- read_csv("data/raw_data/moose_2023.csv",
+raw_data_moose <- read_csv("inputs/raw_data/moose_2023.csv",
                            show_col_types = FALSE)
 
-raw_data_bear <- read_csv("data/raw_data/black_bear_2023.csv",
+raw_data_bear <- read_csv("inputs/raw_data/black_bear_2023.csv",
                           show_col_types = FALSE)
 
 #### Clean in data ####
@@ -139,47 +139,47 @@ all_data_moose$WMU <- as.double(all_data_moose$WMU)
 
 write_parquet(
   x = north_data_moose,
-  sink = "data/analysis_data/north_data_moose.parquet"
+  sink = "outputs/analysis_data/north_data_moose.parquet"
 )
 
 write_parquet(
   x = southeast_data_moose,
-  sink = "data/analysis_data/southeast_data_moose.parquet"
+  sink = "outputs/analysis_data/southeast_data_moose.parquet"
 )
 
 write_parquet(
   x = southwest_data_moose,
-  sink = "data/analysis_data/southwest_data_moose.parquet"
+  sink = "outputs/analysis_data/southwest_data_moose.parquet"
 )
 
 write_parquet(
   x = all_data_moose,
-  sink = "data/analysis_data/all_data_moose.parquet"
+  sink = "outputs/analysis_data/all_data_moose.parquet"
 )
 
 write_parquet(
   x = types_data_moose,
-  sink = "data/analysis_data/types_data_moose.parquet"
+  sink = "outputs/analysis_data/types_data_moose.parquet"
 )
 
 write_parquet(
   x = north_data_bear,
-  sink = "data/analysis_data/north_data_bear.parquet"
+  sink = "outputs/analysis_data/north_data_bear.parquet"
 )
 
 write_parquet(
   x = southeast_data_bear,
-  sink = "data/analysis_data/southeast_data_bear.parquet"
+  sink = "outputs/analysis_data/southeast_data_bear.parquet"
 )
 
 write_parquet(
   x = southwest_data_bear,
-  sink = "data/analysis_data/southwest_data_bear.parquet"
+  sink = "outputs/analysis_data/southwest_data_bear.parquet"
 )
 
 write_parquet(
   x = all_data_bear,
-  sink = "data/analysis_data/all_data_bear.parquet"
+  sink = "outputs/analysis_data/all_data_bear.parquet"
 )
 
 #Running Lintr

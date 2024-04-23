@@ -46,47 +46,47 @@ The graphs and tables in this paper were made with using R studio [@citeR]. The 
 #### Read in data ####
 north_bear <-
   read_parquet(
-    file = "../data/analysis_data/north_data_bear.parquet"
+    file = "../analysis_data/north_data_bear.parquet"
   )
 
 se_bear <-
   read_parquet(
-    file = "../data/analysis_data/southeast_data_bear.parquet"
+    file = "../analysis_data/southeast_data_bear.parquet"
   )
 
 sw_bear <-
   read_parquet(
-    file = "../data/analysis_data/southwest_data_bear.parquet"
+    file = "../analysis_data/southwest_data_bear.parquet"
   )
 
 north_moose <-
   read_parquet(
-    file = "../data/analysis_data/north_data_moose.parquet"
+    file = "../analysis_data/north_data_moose.parquet"
   )
 
 se_moose <-
   read_parquet(
-    file = "../data/analysis_data/southeast_data_moose.parquet"
+    file = "../analysis_data/southeast_data_moose.parquet"
   )
 
 sw_moose <-
   read_parquet(
-    file = "../data/analysis_data/southwest_data_moose.parquet"
+    file = "../analysis_data/southwest_data_moose.parquet"
   )
 
 all_moose <-
   read_parquet(
-    file = "../data/analysis_data/all_data_moose.parquet"
+    file = "../analysis_data/all_data_moose.parquet"
   )
 
 types_moose <-
   read_parquet(
-    file = "../data/analysis_data/types_data_moose.parquet"
+    file = "../analysis_data/types_data_moose.parquet"
   )
 
 all_bear <-
   read_parquet(
-    file = "../data/analysis_data/all_data_bear.parquet"
+    file = "../analysis_data/all_data_bear.parquet"
   )
 ```
 

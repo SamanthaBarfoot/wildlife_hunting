@@ -16,57 +16,48 @@ library(lintr)
 #### Read in data ####
 
 north_bear <-
-  read_csv(
-    file = "./data/analysis_data/north_data_bear.csv",
-    show_col_types = FALSE
+  read_parquet(
+    file = "./outputs/analysis_data/north_data_bear.parquet"
   )
 
 se_bear <-
-  read_csv(
-    file = "./data/analysis_data/southeast_data_bear.csv",
-    show_col_types = FALSE
+  read_parquet(
+    file = "./outputs/analysis_data/southeast_data_bear.parquet"
   )
 
 sw_bear <-
-  read_csv(
-    file = "./data/analysis_data/southwest_data_bear.csv",
-    show_col_types = FALSE
+  read_parquet(
+    file = "./outputs/analysis_data/southwest_data_bear.parquet"
   )
 
 north_moose <-
-  read_csv(
-    file = "./data/analysis_data/north_data_moose.csv",
-    show_col_types = FALSE
+  read_parquet(
+    file = "./outputs/analysis_data/north_data_moose.parquet"
   )
 
 se_moose <-
-  read_csv(
-    file = "./data/analysis_data/southeast_data_moose.csv",
-    show_col_types = FALSE
+  read_parquet(
+    file = "./outputs/analysis_data/southeast_data_moose.parquet"
   )
 
 sw_moose <-
-  read_csv(
-    file = "./data/analysis_data/southwest_data_moose.csv",
-    show_col_types = FALSE
+  read_parquet(
+    file = "./outputs/analysis_data/southwest_data_moose.parquet"
   )
 
 all_moose <-
-  read_csv(
-    file = "./data/analysis_data/all_data_moose.csv",
-    show_col_types = FALSE
+  read_parquet(
+    file = "./outputs/analysis_data/all_data_moose.parquet"
   )
 
 all_bear <-
-  read_csv(
-    file = "./data/analysis_data/all_data_bear.csv",
-    show_col_types = FALSE
+  read_parquet(
+    file = "./outputs/analysis_data/all_data_bear.parquet"
   )
 
 types_moose <-
-  read_csv(
-    file = "./data/analysis_data/types_data_moose.csv",
-    show_col_types = FALSE
+  read_parquet(
+    file = "./outputs/analysis_data/types_data_moose.parquet"
   )
 
 #### Test data ####

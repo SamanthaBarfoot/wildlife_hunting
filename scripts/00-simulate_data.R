@@ -267,49 +267,49 @@ all_data_moose <-
 
 #### SAVE DATA ####
 
-write_csv(
+write_parquet(
   x = north_data_bear,
-  file = "data/analysis_data/north_data_bear.csv"
+  sink = "outputs/analysis_data/north_data_bear.parquet"
 )
 
-write_csv(
+write_parquet(
   x = se_data_bear,
-  file = "data/analysis_data/southeast_data_bear.csv"
+  sink = "outputs/analysis_data/southeast_data_bear.parquet"
 )
 
-write_csv(
+write_parquet(
   x = sw_data_bear,
-  file = "data/analysis_data/southwest_data_bear.csv"
+  sink = "outputs/analysis_data/southwest_data_bear.parquet"
 )
 
-write_csv(
+write_parquet(
   x = north_data_moose,
-  file = "data/analysis_data/north_data_moose.csv"
+  sink = "outputs/analysis_data/north_data_moose.parquet"
 )
 
-write_csv(
+write_parquet(
   x = se_data_moose,
-  file = "data/analysis_data/southeast_data_moose.csv"
+  sink = "outputs/analysis_data/southeast_data_moose.parquet"
 )
 
-write_csv(
+write_parquet(
   x = sw_data_moose,
-  file = "data/analysis_data/southwest_data_moose.csv"
+  sink = "outputs/analysis_data/southwest_data_moose.parquet"
 )
 
-write_csv(
+write_parquet(
   x = types_data_moose,
-  file = "data/analysis_data/types_data_moose.csv"
+  sink = "outputs/analysis_data/types_data_moose.parquet"
 )
 
-write_csv(
+write_parquet(
   x = all_data_bear,
-  file = "data/analysis_data/all_data_bear.csv"
+  sink = "outputs/analysis_data/all_data_bear.parquet"
 )
 
-write_csv(
+write_parquet(
   x = all_data_moose,
-  file = "data/analysis_data/all_data_moose.csv"
+  sink = "outputs/analysis_data/all_data_moose.parquet"
 )
 
 #Running Lintr
