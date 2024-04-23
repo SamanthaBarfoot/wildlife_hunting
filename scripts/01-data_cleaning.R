@@ -4,7 +4,8 @@
 # Date: 28 March 2024
 # Contact: samantha.barfoot@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: download data from Ontario Data Catalogue
+# Pre-requisites: download data from Ontario Data Catalogue and
+# add to data/raw_data
 
 #### Workspace setup ####
 library(tidyverse)
@@ -132,50 +133,54 @@ all_data_bear <-
   filter(WMU >= 1 & WMU <= 95)
 
 #### SAVE DATA ####
-write_csv(
+
+all_data_bear$WMU <- as.double(all_data_bear$WMU)
+all_data_moose$WMU <- as.double(all_data_moose$WMU)
+
+write_parquet(
   x = north_data_moose,
-  file = "data/analysis_data/north_data_moose.csv"
+  sink = "data/analysis_data/north_data_moose.parquet"
 )
 
-write_csv(
+write_parquet(
   x = southeast_data_moose,
-  file = "data/analysis_data/southeast_data_moose.csv"
+  sink = "data/analysis_data/southeast_data_moose.parquet"
 )
 
-write_csv(
+write_parquet(
   x = southwest_data_moose,
-  file = "data/analysis_data/southwest_data_moose.csv"
+  sink = "data/analysis_data/southwest_data_moose.parquet"
 )
 
-write_csv(
+write_parquet(
   x = all_data_moose,
-  file = "data/analysis_data/all_data_moose.csv"
+  sink = "data/analysis_data/all_data_moose.parquet"
 )
 
-write_csv(
+write_parquet(
   x = types_data_moose,
-  file = "data/analysis_data/types_data_moose.csv"
+  sink = "data/analysis_data/types_data_moose.parquet"
 )
 
-write_csv(
+write_parquet(
   x = north_data_bear,
-  file = "data/analysis_data/north_data_bear.csv"
+  sink = "data/analysis_data/north_data_bear.parquet"
 )
 
-write_csv(
+write_parquet(
   x = southeast_data_bear,
-  file = "data/analysis_data/southeast_data_bear.csv"
+  sink = "data/analysis_data/southeast_data_bear.parquet"
 )
 
-write_csv(
+write_parquet(
   x = southwest_data_bear,
-  file = "data/analysis_data/southwest_data_bear.csv"
+  sink = "data/analysis_data/southwest_data_bear.parquet"
 )
 
-write_csv(
+write_parquet(
   x = all_data_bear,
-  file = "data/analysis_data/all_data_bear.csv"
+  sink = "data/analysis_data/all_data_bear.parquet"
 )
 
 #Running Lintr
-#lintr::lint(filename = "scripts/02-data_cleaning.R")
+#lintr::lint(filename = "scripts/01-data_cleaning.R")

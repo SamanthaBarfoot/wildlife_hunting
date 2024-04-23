@@ -1,12 +1,10 @@
 ---
-title: "Datasheet for 'A dataset'"
+title: "Datasheet for 'Wildlife Hunting' data"
 subtitle: "My subtitle if needed"
-author: 
-  - First author
-  - Another author
-thanks: "Code and data are available at: LINK."
-date: "`r Sys.time()`"
-date-format: "D MMMM YYYY"
+author: Samantha Barfoot
+thanks: "Code and data are available at: https://github.com/SamanthaBarfoot/wildlife_hunting.git"
+date: today
+date-format: long
 abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
 format: pdf
 number-sections: true
@@ -19,13 +17,11 @@ Extract of the questions from @gebru2021datasheets.
 **Motivation**
 
 1. *For what purpose was the dataset created? Was there a specific task in mind? Was there a specific gap that needed to be filled? Please provide a description.*
-    - The dataset was created to enable analysis of Australian politicians. We were unable to find a publicly available dataset in a structured format that had the biographical and political information on Australian politicians that was needed for modelling.
+    - The data set was created to enable analysis of Ontario moose and black bear hunting activity. Specifically, the number of active hunters and harvests of both moose and black bears by Wildlife Managment Region
 2. *Who created the dataset (for example, which team, research group) and on behalf of which entity (for example, company, institution, organization)?*
-    - TBD
+    - The creator of the original data set are unknown but they were created on behalf of the Ministry of Resources and Forestry. These data sets were then modified by Samantha Barfoot to use in this paper.
 3. *Who funded the creation of the dataset? If there is an associated grant, please provide the name of the grantor and the grant name and number.*
-    - TBD
-4. *Any other comments?*
-    - TBD
+    - The creation of the original data set was funded by the goverment of Ontario
 
 **Composition**
 

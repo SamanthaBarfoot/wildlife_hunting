@@ -214,7 +214,7 @@ for (i in seq_along(all_bear)){
   }
 }
 
-#TEST 5: Checks that WMU doesn not start with a zero
+#TEST 5: Checks that WMU doesnt not start with a zero
 
 for (i in seq_along(all_moose$WMU)) {
   if (str_starts(all_moose$WMU[i], "0")) {
@@ -229,4 +229,4 @@ for (i in seq_along(all_bear$WMU)) {
 }
 
 #Running Lintr
-#lintr::lint(filename = "scripts/03-test_data.R")
+#lintr::lint(filename = "scripts/02-test_data.R")
